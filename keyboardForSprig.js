@@ -5,6 +5,15 @@
 @addedOn: 2024-00-00
 */
 
+words = ("hello world this is a sample text with some words the user can type").split(" ")
+characters = ("abcdefghijklmnopqrstuvwxyz").split("")
+
+currentWord = ""
+currentText = []
+possibleWords = []
+charactersOnEachButton = [[],[],[],[],[],[],[],[]]
+
+
 const player = "p"
 
 setLegend(
