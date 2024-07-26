@@ -5,8 +5,7 @@
 @addedOn: 2024-00-00
 */
 
-const words = ("hello world this is a sample text with some words the user can type").split(" ")
-const characters = ("abcdefghijklmnopqrstuvwxyz").split("")
+const words = ("hello world this is a sample text with some words the user can type").toLowerCase().split(" ")
 
 var currentText = []
 var possibleWords = words
