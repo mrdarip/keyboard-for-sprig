@@ -70,7 +70,7 @@ function updateUI() {
 function displayText() {
   let allText = currentText.join(" ")
   addText(allText.substring(allText.length - width() * 2), {
-    x: 0, 
+    x: 0,
     y: 0,
     color: '3'
   })
@@ -154,24 +154,56 @@ p.....p....p.....p...
 
 setMap(levels[level])
 
+const powerOn = tune`
+225,
+37.5: F5-37.5,
+37.5: A5-37.5,
+37.5: F5-37.5,
+37.5: A5-37.5,
+825`
+const ok = tune`
+100: F5-100,
+100: A5-100,
+3000`
+const superOk = tune`
+100: F5-100,
+100: G5-100,
+100: B5-100,
+2900`
+const wrong = tune`
+100: E4-100,
+100: C4-100,
+3000`
+// Play it:
+playTune(powerOn)
+
 setPushables({
   [player]: []
 })
 
 for (let key of keys) {
   onInput(key, () => {
-    possibleWords = possibleWords.filter(word => charactersOnEachButton[keys.indexOf(key)].includes(word.charAt(currentLetterIndex % word.length)))
+    console.log(charactersOnEachButton[keys.indexOf(key)])
 
-    if (possibleWords.length <= 1) {
-      currentText.push(possibleWords[0])
-      possibleWords = words
-      currentLetterIndex = 0
+    if (charactersOnEachButton[keys.indexOf(key)].length < 1) {
+      playTune(wrong)
     } else {
-      currentLetterIndex++
-    }
 
-    setKeyboard()
-})
+      possibleWords = possibleWords.filter(word => charactersOnEachButton[keys.indexOf(key)].includes(word.charAt(currentLetterIndex % word.length)))
+
+      if (possibleWords.length <= 1) {
+        playTune(superOk)
+        currentText.push(possibleWords[0])
+        possibleWords = words
+        currentLetterIndex = 0
+      } else {
+        playTune(ok)
+        currentLetterIndex++
+      }
+
+      setKeyboard()
+    }
+  })
 }
 
 afterInput(() => {
