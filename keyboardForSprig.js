@@ -70,7 +70,7 @@ function updateUI() {
 function displayText() {
   let allText = currentText.join(" ")
   addText(allText.substring(allText.length - width() * 2), {
-    x: 0,
+    x: 0, 
     y: 0,
     color: '3'
   })
@@ -78,14 +78,14 @@ function displayText() {
 
 function displayNewKeyboard() {
   let keyPositions = [
-    [3, 10],
-    [6, 12],
-    [3, 14],
-    [0, 12],
-    [14, 10],
-    [17, 12],
-    [14, 14],
-    [11, 12]
+    [3, 8],
+    [6, 9],
+    [3, 11],
+    [0, 10],
+    [13, 12],
+    [16, 13],
+    [13, 15],
+    [10, 14]
   ]
 
   for (let i = 0; i < charactersOnEachButton.length; i++) {
@@ -171,7 +171,7 @@ for (let key of keys) {
     }
 
     setKeyboard()
-  })
+})
 }
 
 afterInput(() => {
