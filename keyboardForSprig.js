@@ -7,6 +7,8 @@
 
 const words = ("hello world this is a sample text with some words the user can type").toLowerCase().split(" ")
 
+const keys = ("wdsailkj").split("")
+
 var currentText = []
 var possibleWords = words
 var currentLetterIndex = 0
@@ -105,10 +107,10 @@ const levels = [
 ..........
 ..........
 ..........
-.p...p....
-..p...p...
-p...p.....
-.p...p....`,
+..........
+..........
+..........
+..........`,
   map`
 .....................
 .....................
@@ -135,9 +137,14 @@ setPushables({
   [player]: []
 })
 
-onInput("s", () => {
-  getFirst(player).y += 1
-})
+for(let key of keys) {
+  console.log(key)
+  onInput(key, () => {
+    console.log(key)
+    currentLetterIndex++
+    setKeyboard()
+  })
+}
 
 afterInput(() => {
 
