@@ -64,6 +64,16 @@ function setKeyboard() {
 function updateUI() {
   clearText()
   displayNewKeyboard()
+  displayText()
+}
+
+function displayText() {
+  let allText = currentText.join(" ")
+  addText(allText.substring(allText.length - width() * 2), {
+    x: 0,
+    y: 0,
+    color: '3'
+  })
 }
 
 function displayNewKeyboard() {
@@ -150,13 +160,15 @@ setPushables({
 
 for (let key of keys) {
   onInput(key, () => {
-    console.log(charactersOnEachButton[keys.indexOf(key)])
-    console.log(possibleWords[0].charAt(currentLetterIndex % possibleWords[0].length))
-    console.log(possibleWords)
     possibleWords = possibleWords.filter(word => charactersOnEachButton[keys.indexOf(key)].includes(word.charAt(currentLetterIndex % word.length)))
-    console.log(possibleWords)
 
-    currentLetterIndex++
+    if (possibleWords.length <= 1) {
+      currentText.push(possibleWords[0])
+      possibleWords = words
+      currentLetterIndex = 0
+    } else {
+      currentLetterIndex++
+    }
 
     setKeyboard()
   })
