@@ -3,6 +3,12 @@
 @author: mrdarip
 @tags: ['tool']
 @addedOn: 2024-07-26
+
+Select the line where the character you want to write is, 
+if you have written your word completelly and your word haven't
+been written yet just start from the first character.
+
+press on an empty character ten times to see what you have written.
 */
 
 //const words = ("write here the words you would like to write and comment next line but discomment this too").toLowerCase().split(" ")
