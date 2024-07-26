@@ -5,7 +5,7 @@
 @addedOn: 2024-00-00
 */
 
-const words = ("a b c d e f g h i j ja je").toLowerCase().split(" ")
+const words = ("hello world take some words for practicing writting on sprig").toLowerCase().split(" ")
 
 const keys = ("wdsailkj").split("")
 
@@ -82,7 +82,7 @@ function displayNewKeyboard() {
     addText(charactersOnEachButton[i].join(""), {
       x: keyPositions[i][0],
       y: keyPositions[i][1],
-      color: i >= 4?'5':'3'
+      color: i >= 4 ? '5' : '3'
     })
   }
 }
@@ -149,10 +149,15 @@ setPushables({
 })
 
 for (let key of keys) {
-  console.log(key)
   onInput(key, () => {
-    console.log(key)
+    console.log(charactersOnEachButton[keys.indexOf(key)])
+    console.log(possibleWords[0].charAt(currentLetterIndex % possibleWords[0].length))
+    console.log(possibleWords)
+    possibleWords = possibleWords.filter(word => charactersOnEachButton[keys.indexOf(key)].includes(word.charAt(currentLetterIndex % word.length)))
+    console.log(possibleWords)
+
     currentLetterIndex++
+
     setKeyboard()
   })
 }
