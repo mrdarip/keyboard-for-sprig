@@ -25,15 +25,39 @@ var charactersOnEachButton = [
 setKeyboard()
 
 function setKeyboard() {
+  charactersOnEachButton = [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
+  let buttonsWeight = [0, 0, 0, 0, 0, 0, 0, 0]
+  
   let charsCount = {}
 
-  for (let word of words) {
+  for (let word of possibleWords) { //we count the sum of characters at current index
     letterAtCurrentIndex = word.charAt(currentLetterIndex % word.length)
 
     charsCount[letterAtCurrentIndex] = charsCount[letterAtCurrentIndex] ? charsCount[letterAtCurrentIndex] + 1 : 1
   }
 
-  console.log(charsCount)
+  let sortedCharsCount = Object.fromEntries(
+    Object.entries(charsCount).sort(([, a], [, b]) => b - a)
+  );
+
+  for (const [key, value] of Object.entries(sortedCharsCount)) {
+    console.log(key, value);
+  }
+
+  displayKeyboard()
+}
+
+function displayKeyboard(charsCount) {
+
 }
 
 const player = "p"
