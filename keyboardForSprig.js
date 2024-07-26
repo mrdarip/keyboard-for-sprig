@@ -5,7 +5,7 @@
 @addedOn: 2024-00-00
 */
 
-const words = ("hello world this is a sample text with some words the user can type").toLowerCase().split(" ")
+const words = ("a b c d e f g h i j ja je").toLowerCase().split(" ")
 
 const keys = ("wdsailkj").split("")
 
@@ -37,7 +37,7 @@ function setKeyboard() {
     []
   ]
   let buttonsWeight = [0, 0, 0, 0, 0, 0, 0, 0]
-  
+
   let charsCount = {}
 
   for (let word of possibleWords) { //we count the sum of characters at current index
@@ -58,17 +58,28 @@ function setKeyboard() {
     charactersOnEachButton[minWeightIndex].push(key)
   }
 
+  updateUI()
+}
+
+function updateUI() {
+  clearText()
   displayNewKeyboard()
 }
 
 function displayNewKeyboard() {
   let keyPositions = [
-    [3,10],[6,12],[3,14],[0,12],
-    [14,10],[17,12],[14,14],[11,12]
+    [3, 10],
+    [6, 12],
+    [3, 14],
+    [0, 12],
+    [14, 10],
+    [17, 12],
+    [14, 14],
+    [11, 12]
   ]
 
   for (let i = 0; i < charactersOnEachButton.length; i++) {
-    addText(charactersOnEachButton[i].join(""), { 
+    addText(charactersOnEachButton[i].join(""), {
       x: keyPositions[i][0],
       y: keyPositions[i][1],
       color: color`3`
@@ -137,7 +148,7 @@ setPushables({
   [player]: []
 })
 
-for(let key of keys) {
+for (let key of keys) {
   console.log(key)
   onInput(key, () => {
     console.log(key)
