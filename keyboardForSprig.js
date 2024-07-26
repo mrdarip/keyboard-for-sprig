@@ -9,6 +9,9 @@ const words = ("abstract as base bool break byte case catch char checked class c
 
 const keys = ("wdsailkj").split("")
 
+var missedKeys = 0
+var currentLine = 0
+
 var currentText = []
 var possibleWords = words
 var currentLetterIndex = 0
@@ -97,8 +100,6 @@ function displayNewKeyboard() {
   }
 }
 
-
-
 let level = 0
 const levels = [
   map`
@@ -134,7 +135,14 @@ const wrong = tune`
 100: E4-100,
 100: C4-100,
 3000`
-// Play it:
+const superWrong = tune`
+100: E4-100,
+100: C4-100,
+100: D4-100,
+100,
+100: C4-100,
+2700`
+
 playTune(powerOn)
 
 
@@ -142,23 +150,63 @@ for (let key of keys) {
   onInput(key, () => {
     console.log(charactersOnEachButton[keys.indexOf(key)])
 
-    if (charactersOnEachButton[keys.indexOf(key)].length < 1) {
-      playTune(wrong)
-    } else {
+    if (level == 0) {
+      if (charactersOnEachButton[keys.indexOf(key)].length < 1) {
 
-      possibleWords = possibleWords.filter(word => charactersOnEachButton[keys.indexOf(key)].includes(word.charAt(currentLetterIndex % word.length)))
+        missedKeys++
 
-      if (possibleWords.length <= 1) {
-        playTune(superOk)
-        currentText.push(possibleWords[0])
-        possibleWords = words
-        currentLetterIndex = 0
+        if (missedKeys >= 10) {
+          playTune(superWrong)
+          clearText()
+          level = 1
+
+          inputForView()
+        } else {
+          playTune(wrong)
+        }
       } else {
-        playTune(ok)
-        currentLetterIndex++
-      }
+        missedKeys = 0
 
-      setKeyboard()
+        possibleWords = possibleWords.filter(word => charactersOnEachButton[keys.indexOf(key)].includes(word.charAt(currentLetterIndex % word.length)))
+
+        if (possibleWords.length <= 1) {
+          playTune(superOk)
+          currentText.push(possibleWords[0])
+          possibleWords = words
+          currentLetterIndex = 0
+        } else {
+          playTune(ok)
+          currentLetterIndex++
+        }
+
+        setKeyboard()
+      }
     }
   })
+}
+
+function inputForView() {
+  updateView()
+
+  onInput('w', () => {
+    currentLine--
+    updateView()
+  })
+  onInput('s', () => {
+    currentLine++
+    updateView()
+  })
+}
+
+function updateView() {
+  clearText()
+  let allText = currentText.join(" ")
+
+  for (let i = 0; i < height() * 2; i++) {
+    addText(allText.substring((i + currentLine) * (width() * 2), (i + currentLine + 1) * width() * 2), {
+      x: 0,
+      y: i,
+      color: '0'
+    })
+  }
 }
