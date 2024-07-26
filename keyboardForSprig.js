@@ -50,7 +50,11 @@ function setKeyboard() {
   );
 
   for (const [key, value] of Object.entries(sortedCharsCount)) {
-    console.log(key, value);
+    let minWeight = Math.min(...buttonsWeight)
+    let minWeightIndex = buttonsWeight.indexOf(minWeight)
+
+    buttonsWeight[minWeightIndex] += value
+    charactersOnEachButton[minWeightIndex].push(key)
   }
 
   displayKeyboard()
