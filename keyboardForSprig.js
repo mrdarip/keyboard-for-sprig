@@ -82,7 +82,7 @@ function displayNewKeyboard() {
     addText(charactersOnEachButton[i].join(""), {
       x: keyPositions[i][0],
       y: keyPositions[i][1],
-      color: color`3`
+      color: i >= 4?'5':'3'
     })
   }
 }
